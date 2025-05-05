@@ -1,0 +1,42 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  // output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+
+model PromptOutput {
+  id        String   @id @default(uuid())
+  output    String
+  model     String   // e.g., gpt-4, claude
+  inferredPrompt PromptTemplate? @relation(name: "PromptOutputToPromptTemplate", fields: [inferredPromptId], references: [id])
+  inferredPromptId String?
+  createdAt DateTime @default(now())
+}
+
+model PromptTemplate {
+  id        String   @id @default(uuid())
+  text      String
+  tone      String?
+  function  String?
+  createdAt DateTime @default(now())
+
+  PromptOutput PromptOutput[] @relation(name: "PromptOutputToPromptTemplate")
+}
+
+model PromptTranslation {
+  id              Int      @id @default(autoincrement())
+  sourceModel     String
+  targetModel     String
+  sourcePrompt    String
+  translatedPrompt String   
+  createdAt       DateTime @default(now())
+}
+
