@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import { ArrowLeftRight, Check, CheckCircle, Copy, Download, Sparkles, Upload } from 'lucide-react';
 import targetOptimizations from './data/targetOptimizations'; // Import target optimizations
+import Navbar from './layouts/Navbar';
+import PrimaryBtn from './components/PrimaryBtn';
+import PromptForm from './components/PromptForm';
 
 
 const App = () => {
@@ -18,13 +21,9 @@ const App = () => {
     const [isInferring, setIsInferring] = useState(false);
     const [copiedToClipboard, setCopiedToClipboard] = useState(false);
 
-    const models = [
-        { id: 'openai', name: 'OpenAI GPT-4' },
-        { id: 'claude', name: 'Anthropic Claude' },
-        { id: 'gemini', name: 'Google Gemini' },
-        { id: 'bedrock-titan', name: 'Amazon Titan' },
-        { id: 'bedrock-llama', name: 'Bedrock Llama 3' },
-    ];
+    
+
+    
 
     const translatePrompt = () => {
         setIsTranslating(true);
@@ -91,112 +90,28 @@ const App = () => {
     };
     return (
         <div className="flex flex-col min-h-screen bg-gray-50 p-4">
-            <header className="mb-6">
-                <h1 className="text-3xl font-bold text-indigo-700">
-                    PromptPort
-                    <span className="text-lg font-normal text-gray-500 ml-2">
-                        Cross-LLM Prompt Translator
-                    </span>
-                </h1>
-                <p className="text-gray-600">
-                    Translate, optimize, and test prompts across major language model platforms
-                </p>
-            </header>
+            <Navbar />
 
             <div className="bg-white rounded-lg shadow-lg p-6 flex-grow">
                 <div className="flex border-b mb-6">
-                    <button
-                        className={`px-4 py-2 font-medium ${activeTab === 'translate' ? 'text-indigo-600 border-b-2 border-indigo-600' : 'text-gray-500'}`}
+                    <PrimaryBtn
                         onClick={() => setActiveTab('translate')}
-                    >
-                        Translate Prompts
-                    </button>
-                    <button
-                        className={`px-4 py-2 font-medium ${activeTab === 'reverse' ? 'text-indigo-600 border-b-2 border-indigo-600' : 'text-gray-500'}`}
+                        legend="Translate Prompt"
+                        activeTab={activeTab === 'translate' ? 'text-indigo-600 border-b-2 border-indigo-600' : 'text-gray-500'}
+                    />
+                    <PrimaryBtn
                         onClick={() => setActiveTab('reverse')}
-                    >
-                        Reverse Engineer
-                    </button>
+                        legend="Reverse Engineer"
+                        activeTab={activeTab === 'reverse' ? 'text-indigo-600 border-b-2 border-indigo-600' : 'text-gray-500'}
+                    />
                 </div>
 
                 {activeTab === 'translate' ? (
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                        <div className="flex flex-col">
-                            <div className="flex items-center justify-between mb-4">
-                                <label htmlFor="sourceModel" className="block text-sm font-medium text-gray-700">Source Model</label>
-                                <select
-                                    id="sourceModel"
-                                    className="block w-64 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm"
-                                    value={sourceModel}
-                                    onChange={(e) => setSourceModel(e.target.value)}
-                                >
-                                    {models.map(model => (
-                                        <option key={model.id} value={model.id}>{model.name}</option>
-                                    ))}
-                                </select>
-                            </div>
+                        <PromptForm />
 
-                            <textarea
-                                className="w-full h-96 p-4 border border-gray-300 rounded-md shadow-inner focus:ring-indigo-500 focus:border-indigo-500 text-sm font-mono"
-                                placeholder="Paste your source prompt here..."
-                                value={sourcePrompt}
-                                onChange={(e) => setSourcePrompt(e.target.value)}
-                            />
-
-                            <div className="flex gap-2 mt-4">
-                                <button
-                                    className="flex items-center gap-1 px-3 py-1 text-xs border border-gray-300 rounded-md hover:bg-gray-50"
-                                    onClick={() => {/* File upload logic */ }}
-                                >
-                                    <Upload size={14} /> Import
-                                </button>
-                                <button
-                                    className="flex items-center gap-1 px-3 py-1 text-xs border border-gray-300 rounded-md hover:bg-gray-50"
-                                    onClick={() => {/* Example load logic */ }}
-                                >
-                                    Examples
-                                </button>
-                            </div>
-                        </div>
-
-                        <div className="flex flex-col">
-                            <div className="flex items-center justify-between mb-4">
-                                <label htmlFor="targetModel" className="block text-sm font-medium text-gray-700">Target Model</label>
-                                <select
-                                    id="targetModel"
-                                    className="block w-64 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm"
-                                    value={targetModel}
-                                    onChange={(e) => setTargetModel(e.target.value)}
-                                >
-                                    {models.map(model => (
-                                        <option key={model.id} value={model.id}>{model.name}</option>
-                                    ))}
-                                </select>
-                            </div>
-
-                            <textarea
-                                className="w-full h-96 p-4 border border-gray-300 rounded-md shadow-inner focus:ring-indigo-500 focus:border-indigo-500 text-sm font-mono"
-                                placeholder="Translated prompt will appear here..."
-                                value={translatedPrompt}
-                                readOnly
-                            />
-
-                            <div className="flex gap-2 mt-4">
-                                <button
-                                    className="flex items-center gap-1 px-3 py-1 text-xs border border-gray-300 rounded-md hover:bg-gray-50"
-                                    onClick={() => copyToClipboard(translatedPrompt)}
-                                >
-                                    {copiedToClipboard ? <CheckCircle size={14} className="text-green-600" /> : <Copy size={14} />}
-                                    {copiedToClipboard ? 'Copied!' : 'Copy'}
-                                </button>
-                                <button
-                                    className="flex items-center gap-1 px-3 py-1 text-xs border border-gray-300 rounded-md hover:bg-gray-50"
-                                    onClick={() => {/* Download logic */ }}
-                                >
-                                    <Download size={14} /> Export
-                                </button>
-                            </div>
-                        </div>
+                        
+                        <PromptForm/>
 
                         <div className="flex justify-center lg:col-span-2 my-4">
                             <button
