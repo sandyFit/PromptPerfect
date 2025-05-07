@@ -1,9 +1,8 @@
-// utils/validations.js
 const { z } = require('zod');
 const { allowedModels } = require('../constants/models');
 
 const validatePromptsSchema = z.object({
-    sourceModel: z.enum(allowedModels),
+    sourceModel: z.enum(allowedModels).optional(),
     targetModel: z.enum(allowedModels),
     sourcePrompt: z
         .string()

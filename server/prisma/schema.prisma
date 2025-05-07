@@ -40,3 +40,12 @@ model PromptTranslation {
   createdAt       DateTime @default(now())
 }
 
+model PromptOptimization {
+  id            Int     @id @default(autoincrement())
+  targetModel   String
+  sourcePrompt  String
+  suggestions   String
+  createdAt     DateTime @default(now())
+}
+
+

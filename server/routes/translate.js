@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const prisma = require('@prisma/client');
+const prisma = require('../prisma/client');
 const { validatePromptsSchema } = require('../utils/schemaValidations');
 
 /**
@@ -104,10 +104,6 @@ router.post('/translate', async (req, res) => {
             processedTranslation = sourcePrompt;
         };
 
-        res.json({
-            translatedPrompt: processedTranslation,
-            rawAmazonQResponse: translatedPrompt // For debugging purposes
-        });
 
         // ✅ Save the Logged translations to the database for future reference
         await prisma.promptTranslation.create({
@@ -125,8 +121,10 @@ router.post('/translate', async (req, res) => {
             sourceModel,
             targetModel,
             originalPrompt: sourcePrompt,
-            translatedPrompt
+            translatedPrompt: processedTranslation,
+            rawAmazonQResponse: translatedPrompt
         });
+
 
     } catch (err) {
         console.error('Error translating prompt:', err);
