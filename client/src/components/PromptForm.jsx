@@ -1,15 +1,10 @@
 import React, { useState } from 'react';
 import SmallBtn from './SmallBtn';
 import { Copy, Upload, Download } from 'lucide-react';
+import  models  from '../data/models';
 
 
-const models = [
-    { id: 'openai', name: 'OpenAI GPT-4' },
-    { id: 'claude', name: 'Anthropic Claude' },
-    { id: 'gemini', name: 'Google Gemini' },
-    { id: 'bedrock-titan', name: 'Amazon Titan' },
-    { id: 'bedrock-llama', name: 'Bedrock Llama 3' },
-];
+
 
 const PromptForm = ({ isSourceModel, model, setModel, prompt, setPrompt }) => {
     return (
