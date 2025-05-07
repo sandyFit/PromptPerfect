@@ -1,9 +1,7 @@
-import React, { useState } from 'react';
-import SmallBtn from './SmallBtn';
+import React from 'react';
+import SmallBtn from './buttons/SmallBtn';
 import { Copy, Upload, Download } from 'lucide-react';
-import  models  from '../data/models';
-
-
+import models from '../data/models';
 
 
 const PromptForm = ({ isSourceModel, model, setModel, prompt, setPrompt }) => {
@@ -30,8 +28,10 @@ const PromptForm = ({ isSourceModel, model, setModel, prompt, setPrompt }) => {
                 </header>
 
                 <textarea
-                    className="w-full h-96 p-4 border border-gray-300 rounded-md shadow-inner focus:ring-indigo-500 focus:border-indigo-500 text-sm font-mono"
-                    placeholder={isSourceModel ? "Paste your source prompt here..." : "Translated prompt will appear here..."}
+                    className="w-full h-96 p-4 border border-gray-300 rounded-md shadow-inner 
+                        focus:ring-indigo-500 focus:border-indigo-500 text-sm font-mono"
+                    placeholder={isSourceModel ? "Paste your source prompt here..." :
+                        "Translated prompt will appear here..."}
                     value={prompt}
                     onChange={(e) => setPrompt(e.target.value)}
                     readOnly={!isSourceModel}

@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import { ArrowLeftRight, Check, CheckCircle, Copy, Download, Sparkles, Upload } from 'lucide-react';
+import { ArrowLeftRight, ArrowRightLeft, Check, CheckCircle, Copy, Download, Sparkles, Upload } from 'lucide-react';
 import targetOptimizations from './data/targetOptimizations'; // Import target optimizations
 import Navbar from './layouts/Navbar';
-import PrimaryBtn from './components/PrimaryBtn';
+import PrimaryBtn from './components/buttons/PrimaryBtn';
 import PromptForm from './components/PromptForm';
 import ReversePrompt from './components/ReversePrompt';
+import ActionBtn from './components/buttons/ActionBtn';
 
 
 
@@ -120,24 +121,13 @@ const App = () => {
                         />
 
 
-                        <div className="flex justify-center lg:col-span-2 my-4">
-                            <button
-                                className="flex items-center px-4 py-2 bg-indigo-600 text-white rounded-md shadow hover:bg-indigo-700 disabled:bg-gray-400"
+                        <div className="flex justify-center lg:col-span-2 -mt-2 mb-4">
+                            <ActionBtn
                                 onClick={translatePrompt}
-                                disabled={!sourcePrompt || isTranslating}
-                            >
-                                {isTranslating ? (
-                                    <>
-                                        <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent mr-2"></div>
-                                        Translating...
-                                    </>
-                                ) : (
-                                    <>
-                                        <ArrowLeftRight className="mr-2" size={18} />
-                                        Translate Prompt
-                                    </>
-                                )}
-                            </button>
+                                disabled={!sourcePrompt}
+                                loading={isTranslating}
+                                icon={ArrowRightLeft}
+                                label={isTranslating ? 'Translating...' : 'Translate Prompt'}/>
                         </div>
 
                         {optimizations.length > 0 && (
@@ -166,23 +156,12 @@ const App = () => {
                         
 
                         <div className="flex justify-center lg:col-span-2 my-4">
-                            <button
-                                className="flex items-center px-4 py-2 bg-indigo-600 text-white rounded-md shadow hover:bg-indigo-700 disabled:bg-gray-400"
-                                onClick={inferPromptFromOutput}
-                                disabled={!reverseOutput || isInferring}
-                            >
-                                {isInferring ? (
-                                    <>
-                                        <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent mr-2"></div>
-                                        Inferring Prompt...
-                                    </>
-                                ) : (
-                                    <>
-                                        <Sparkles className="mr-2" size={18} />
-                                        Infer Original Prompt
-                                    </>
-                                )}
-                            </button>
+                        <ActionBtn
+                            onClick={inferPromptFromOutput}
+                            disabled={!reverseOutput || isInferring}
+                            loading={isInferring}
+                            icon={Sparkles}
+                            label={isInferring ? 'Inferring Prompt...' : 'Infer Original Prompt'}/>
                         </div>
                     </div>
                 )}

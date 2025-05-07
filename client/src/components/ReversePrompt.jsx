@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
-import SmallBtn from './SmallBtn';
-import { Copy } from 'lucide-react';   
+import SmallBtn from './buttons/SmallBtn';
+import { Copy } from 'lucide-react';
 import models from '../data/models';
 
-const ReversePrompt = ({ 
+const ReversePrompt = ({
     reverseOutput,
     setReverseOutput,
     targetModel,
     setTargetModel,
     inferredPrompt,
     setSourcePrompt
-}) => { 
+}) => {
 
     const [copiedToClipboard, setCopiedToClipboard] = useState(false);
-    
+
     const copyToClipboard = (text) => {
         navigator.clipboard.writeText(text);
         setCopiedToClipboard(true);
@@ -61,13 +61,6 @@ const ReversePrompt = ({
                         icon={copiedToClipboard ? <Check size={14} /> : <Copy size={14} />}
                         legend={copiedToClipboard ? 'Copied!' : 'Copy'}
                         onClick={() => copyToClipboard(inferredPrompt)} />
-                    {/* <button
-                        className="flex items-center gap-1 px-3 py-1 text-xs border border-gray-300 rounded-md hover:bg-gray-50"
-                        onClick={() => copyToClipboard(inferredPrompt)}
-                    >
-                        {copiedToClipboard ? <Check size={14} /> : <Copy size={14} />}
-                        {copiedToClipboard ? 'Copied!' : 'Copy'}
-                    </button> */}
                     <button
                         className="flex items-center gap-1 px-3 py-1 text-xs text-indigo-600 border border-indigo-300 rounded-md hover:bg-indigo-50"
                         onClick={() => {
