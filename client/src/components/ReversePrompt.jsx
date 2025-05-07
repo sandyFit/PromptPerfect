@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import SmallBtn from './buttons/SmallBtn';
 import { Copy } from 'lucide-react';
 import models from '../data/models';
+import PromptTextarea from './PromptTextarea';
 
 const ReversePrompt = ({
     reverseOutput,
@@ -25,16 +26,17 @@ const ReversePrompt = ({
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                     Model Output (to reverse-engineer prompt)
                 </label>
-                <textarea
-                    className="w-full h-96 p-4 border border-gray-300 rounded-md shadow-inner focus:ring-indigo-500 focus:border-indigo-500 text-sm font-mono"
-                    placeholder="Paste the model output you want to reverse-engineer..."
+                
+                <PromptTextarea
                     value={reverseOutput}
-                    onChange={(e) => setReverseOutput(e.target.value)}
+                    onChange={(e) => setSourcePrompt(e.target.value)}
+                    placeholder="Paste the model output you want to reverse-engineer..."
+                    maxLength={5000}               
                 />
 
                 <div className="mt-4">
                     <select
-                        className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm"
+                        className="block w-full rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500 text-sm"
                         value={targetModel}
                         onChange={(e) => setTargetModel(e.target.value)}
                     >
@@ -49,10 +51,12 @@ const ReversePrompt = ({
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                     Inferred Prompt
                 </label>
-                <textarea
-                    className="w-full h-96 p-4 border border-gray-300 rounded-md shadow-inner focus:ring-indigo-500 focus:border-indigo-500 text-sm font-mono"
-                    placeholder="Inferred prompt will appear here..."
+
+                <PromptTextarea
                     value={inferredPrompt}
+                    onChange={(e) => setSourcePrompt(e.target.value)}
+                    placeholder="Inferred prompt will appear here..."
+                    maxLength={5000}
                     readOnly
                 />
 
@@ -62,7 +66,7 @@ const ReversePrompt = ({
                         legend={copiedToClipboard ? 'Copied!' : 'Copy'}
                         onClick={() => copyToClipboard(inferredPrompt)} />
                     <button
-                        className="flex items-center gap-1 px-3 py-1 text-xs text-indigo-600 border border-indigo-300 rounded-md hover:bg-indigo-50"
+                        className="flex items-center gap-1 px-3 py-1 text-xs text-purple-600 border border-purple-300 rounded-md hover:bg-purple-50"
                         onClick={() => {
                             setActiveTab('translate');
                             setSourcePrompt(inferredPrompt);

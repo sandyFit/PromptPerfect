@@ -3,8 +3,8 @@ import React from 'react'
 const Navbar = () => {
     return (
         <header className="mb-6">
-            <h1 className="text-3xl font-bold text-indigo-700">
-                PromptPort
+            <h1 className="text-3xl font-bold text-purple-600">
+                PromptPerfect
                 <span className="text-lg font-normal text-gray-500 ml-2">
                     Cross-LLM Prompt Translator
                 </span>

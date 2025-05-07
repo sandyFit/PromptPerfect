@@ -2,6 +2,7 @@ import React from 'react';
 import SmallBtn from './buttons/SmallBtn';
 import { Copy, Upload, Download } from 'lucide-react';
 import models from '../data/models';
+import PromptTextarea from './PromptTextarea';
 
 
 const PromptForm = ({ isSourceModel, model, setModel, prompt, setPrompt }) => {
@@ -17,7 +18,8 @@ const PromptForm = ({ isSourceModel, model, setModel, prompt, setPrompt }) => {
                     </label>
                     <select
                         id={isSourceModel ? 'sourceModel' : 'targetModel'}
-                        className="block w-64 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm"
+                        className="block w-64 rounded-md border-gray-300 shadow-sm focus:outline-none focus:ring-2 
+                            focus:border-purple-500 focus:ring-purple-500 text-sm text-purple-600"
                         value={model}
                         onChange={(e) => setModel(e.target.value)}
                     >
@@ -27,15 +29,16 @@ const PromptForm = ({ isSourceModel, model, setModel, prompt, setPrompt }) => {
                     </select>
                 </header>
 
-                <textarea
-                    className="w-full h-96 p-4 border border-gray-300 rounded-md shadow-inner 
-                        focus:ring-indigo-500 focus:border-indigo-500 text-sm font-mono"
-                    placeholder={isSourceModel ? "Paste your source prompt here..." :
-                        "Translated prompt will appear here..."}
-                    value={prompt}
-                    onChange={(e) => setPrompt(e.target.value)}
-                    readOnly={!isSourceModel}
-                />
+                <div className="relative">
+                    <PromptTextarea
+                        value={prompt}
+                        onChange={(e) => setPrompt(e.target.value)}
+                        readOnly={!isSourceModel}
+                        placeholder={isSourceModel ? 'Enter source prompt...' : 'Enter target prompt...'}
+                        maxLength={5000}
+                    />
+                </div>
+
 
 
                 <div className="flex gap-2 mt-4">
