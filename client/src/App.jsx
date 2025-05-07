@@ -5,6 +5,13 @@ import Navbar from './layouts/Navbar';
 import PrimaryBtn from './components/PrimaryBtn';
 import PromptForm from './components/PromptForm';
 
+const models = [
+    { id: 'openai', name: 'OpenAI GPT-4' },
+    { id: 'claude', name: 'Anthropic Claude' },
+    { id: 'gemini', name: 'Google Gemini' },
+    { id: 'bedrock-titan', name: 'Amazon Titan' },
+    { id: 'bedrock-llama', name: 'Bedrock Llama 3' },
+];
 
 const App = () => {
 
@@ -21,7 +28,7 @@ const App = () => {
     const [isInferring, setIsInferring] = useState(false);
     const [copiedToClipboard, setCopiedToClipboard] = useState(false);
 
-    
+
 
     
 
@@ -108,10 +115,22 @@ const App = () => {
 
                 {activeTab === 'translate' ? (
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                        <PromptForm />
+                        <PromptForm
+                            isSourceModel={true}
+                            model={sourceModel}
+                            setModel={setSourceModel}
+                            prompt={sourcePrompt}
+                            setPrompt={setSourcePrompt}
+                        />
 
-                        
-                        <PromptForm/>
+                        <PromptForm
+                            isSourceModel={false}
+                            model={targetModel}
+                            setModel={setTargetModel}
+                            prompt={translatedPrompt}
+                            setPrompt={setTranslatedPrompt}
+                        />
+
 
                         <div className="flex justify-center lg:col-span-2 my-4">
                             <button

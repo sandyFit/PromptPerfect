@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import SmallBtn from './SmallBtn';
-import { Copy, Upload } from 'lucide-react';
+import { Copy, Upload, Download } from 'lucide-react';
 
 
 const models = [
@@ -11,27 +11,22 @@ const models = [
     { id: 'bedrock-llama', name: 'Bedrock Llama 3' },
 ];
 
-const PromptForm = () => {
-    const [isSourceModel, setIsSourceModel] = useState(true);
-    const [sourceModel, setSourceModel] = useState('openai');
-    const [targetModel, setTargetModel] = useState('claude');
-    const [sourcePrompt, setSourcePrompt] = useState('');
-    const [targetPrompt, setTargetPrompt] = useState('');
-
+const PromptForm = ({ isSourceModel, model, setModel, prompt, setPrompt }) => {
     return (
         <article>
             <form className="flex flex-col">
                 <header className="flex items-center justify-between mb-4">
                     <label
-                        htmlFor="sourceModel"
-                        className="block text-sm font-medium text-gray-700">
-                        Source Model
+                        htmlFor={isSourceModel ? 'sourceModel' : 'targetModel'}
+                        className="block text-sm font-medium text-gray-700"
+                    >
+                        {isSourceModel ? 'Source Model' : 'Target Model'}
                     </label>
                     <select
-                        id="sourceModel"
+                        id={isSourceModel ? 'sourceModel' : 'targetModel'}
                         className="block w-64 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm"
-                        value={sourceModel}
-                        onChange={(e) => setSourceModel(e.target.value)}
+                        value={model}
+                        onChange={(e) => setModel(e.target.value)}
                     >
                         {models.map(model => (
                             <option key={model.id} value={model.id}>{model.name}</option>
@@ -41,14 +36,16 @@ const PromptForm = () => {
 
                 <textarea
                     className="w-full h-96 p-4 border border-gray-300 rounded-md shadow-inner focus:ring-indigo-500 focus:border-indigo-500 text-sm font-mono"
-                    placeholder="Paste your source prompt here..."
-                    value={sourcePrompt}
-                    onChange={(e) => setSourcePrompt(e.target.value)}
+                    placeholder={isSourceModel ? "Paste your source prompt here..." : "Translated prompt will appear here..."}
+                    value={prompt}
+                    onChange={(e) => setPrompt(e.target.value)}
+                    readOnly={!isSourceModel}
                 />
+
 
                 <div className="flex gap-2 mt-4">
                     <SmallBtn
-                        icon={isSourceModel ?  <Upload size={14} /> : <Copy size={14} />}
+                        icon={isSourceModel ? <Upload size={14} /> : <Copy size={14} />}
                         legend={isSourceModel ? 'Import' : 'Copy'}
                         onClick={() => {/* File upload logic */ }}
                     />
@@ -61,6 +58,6 @@ const PromptForm = () => {
             </form>
         </article>
     )
-}
+};
 
 export default PromptForm;
