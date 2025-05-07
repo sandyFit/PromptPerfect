@@ -6,13 +6,7 @@ import PrimaryBtn from './components/PrimaryBtn';
 import PromptForm from './components/PromptForm';
 import ReversePrompt from './components/ReversePrompt';
 
-const models = [
-    { id: 'openai', name: 'OpenAI GPT-4' },
-    { id: 'claude', name: 'Anthropic Claude' },
-    { id: 'gemini', name: 'Google Gemini' },
-    { id: 'bedrock-titan', name: 'Amazon Titan' },
-    { id: 'bedrock-llama', name: 'Bedrock Llama 3' },
-];
+
 
 const App = () => {
 
@@ -29,9 +23,6 @@ const App = () => {
     const [isInferring, setIsInferring] = useState(false);
 
 
-
-
-    
 
     const translatePrompt = () => {
         setIsTranslating(true);
