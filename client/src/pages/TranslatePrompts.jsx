@@ -1,17 +1,13 @@
 import { useState } from 'react';
-import { ArrowRightLeft, Sparkles } from 'lucide-react';
-import targetOptimizations from '../data/targetOptimizations';
+import axios from 'axios';
+import { ArrowRightLeft, ScanSearch, Sparkles } from 'lucide-react';
 import models from '../data/models';
-import Navbar from '../layouts/Navbar';
 import PrimaryBtn from '../components/buttons/PrimaryBtn';
 import PromptForm from '../components/PromptForm';
 import ReversePrompt from '../components/ReversePrompt';
 import ActionBtn from '../components/buttons/ActionBtn';
 
-
-
 const TranslatePrompts = () => {
-
     const [sourceModel, setSourceModel] = useState('openai');
     const [targetModel, setTargetModel] = useState('claude');
     const [sourcePrompt, setSourcePrompt] = useState('');
@@ -24,54 +20,50 @@ const TranslatePrompts = () => {
     const [inferredPrompt, setInferredPrompt] = useState('');
     const [isInferring, setIsInferring] = useState(false);
 
+    const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 
-    const translatePrompt = () => {
+    const translatePrompt = async () => {
         setIsTranslating(true);
+        try {
+            const response = await axios.post(`${BASE_URL}/translate`, {
+                sourceModel,
+                targetModel,
+                sourcePrompt
+            });
 
-        // Simulate API call with timeout
-        setTimeout(() => {
-            // Example translation logic (in a real app, this would be an API call)
-            let translated = '';
+            const { data } = response;
+            setTranslatedPrompt(data.translatedPrompt);
 
-            if (sourceModel === 'openai' && targetModel === 'claude') {
-                // OpenAI to Claude translation
-                translated = sourcePrompt
-                    .replace(/\{\{(.*?)\}\}/g, '<$1>') // Convert variables
-                    .replace(/^System: /gm, '<system>') // Convert system prompt
-                    .replace(/^User: /gm, '\n\nHuman: ') // Convert user messages
-                    .replace(/^Assistant: /gm, '\n\nAssistant: '); // Convert assistant messages
-            } else if (sourceModel === 'claude' && targetModel === 'openai') {
-                // Claude to OpenAI translation
-                translated = sourcePrompt
-                    .replace(/<(.*?)>/g, '{{$1}}') // Convert variables
-                    .replace(/<system>(.*?)<\/system>/gs, 'System: $1\n') // Convert system prompt
-                    .replace(/Human: /g, 'User: ') // Convert human messages
-                    .replace(/Assistant: /g, 'Assistant: '); // Convert assistant messages
-            } else {
-                // Generic translation for demo purposes
-                translated = `# Translated ${sourceModel} prompt for ${targetModel}\n\n${sourcePrompt}`;
-            }
-
-            setTranslatedPrompt(translated);
-            setIsTranslating(false);
-
-            // After translation, get optimization suggestions
+            // Generate Optimizations after successful translation
             generateOptimizations();
-        }, 1500);
+        } catch (error) {
+            console.error('Error translating prompt:', error);
+            setTranslatedPrompt('Error translating prompt.');
+        } finally {
+            setIsTranslating(false);
+        }
     };
 
-    const generateOptimizations = () => {
+    const generateOptimizations = async () => {
         setIsOptimizing(true);
+        try {
+            const response = await axios.post(`${BASE_URL}/optimize`, {
+                targetModel,
+                sourceModel
+            });
 
-        // Simulate API call with timeout
-        setTimeout(() => {
-            // Example optimization suggestions (would come from Amazon Q in actual implementation)
-
-            setOptimizations(targetOptimizations[targetModel] || []);
+            // Access data from the response
+            const { data } = response;
+            setOptimizations(data.optimizations || []);
+        } catch (error) {
+            console.error('Error optimizing prompt:', error);
+            setOptimizations([]);
+        } finally {
             setIsOptimizing(false);
-        }, 2000);
+        }
     };
+
 
     const inferPromptFromOutput = () => {
         setIsInferring(true);
@@ -84,27 +76,31 @@ const TranslatePrompts = () => {
         }, 2500);
     };
 
-
     return (
-        <div className="flex flex-col min-h-screen bg-gray-50 p-4">
-            <Navbar />
+        <div className="flex flex-col max-h-screen bg-purple-100 px-12 ">
 
-            <div className="bg-white rounded-lg shadow-lg p-6 flex-grow">
-                <div className="flex border-b mb-6">
-                    <PrimaryBtn
-                        onClick={() => setActiveTab('translate')}
-                        legend="Translate Prompt"
-                        activeTab={activeTab === 'translate' ? 'text-purple-600 border-b-2 border-purple-600' : 'text-gray-500'}
-                    />
-                    <PrimaryBtn
-                        onClick={() => setActiveTab('reverse')}
-                        legend="Reverse Engineer"
-                        activeTab={activeTab === 'reverse' ? 'text-purple-600 border-b-2 border-purple-600' : 'text-gray-500'}
-                    />
-                </div>
+            <div className="flex mb-3 justify-center">
+                <PrimaryBtn
+                    onClick={() => setActiveTab('translate')}
+                    icon={<ArrowRightLeft size={16}/>}
+                    legend="Translate Prompt"
+                    activeTab={activeTab === 'translate'
+                        ? ' text-purple-600 border-b-4 border-purple-600'
+                        : 'bg-purple-50 text-gray-500'}
+                />
+                <PrimaryBtn
+                    onClick={() => setActiveTab('reverse')}
+                    icon={<ScanSearch size={16}/>}
+                    legend="Reverse Engineer"
+                    activeTab={activeTab === 'translate'
+                        ? 'bg-purple-50 text-gray-500 '
+                        : 'text-purple-600 border-b-4 border-purple-600'}
+                />
+            </div>
+            <div className="bg-white border border-purple-200 rounded-lg shadow-lg shadow-purple-200 px-12 pt-8 pb-3 flex-grow">
 
                 {activeTab === 'translate' ? (
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
                         <PromptForm
                             isSourceModel={true}
                             model={sourceModel}
@@ -121,18 +117,18 @@ const TranslatePrompts = () => {
                             setPrompt={setTranslatedPrompt}
                         />
 
-
-                        <div className="flex justify-center lg:col-span-2 -mt-2 mb-4">
+                        <div className="flex justify-center lg:col-span-2 -mt-7 mb-3">
                             <ActionBtn
                                 onClick={translatePrompt}
                                 disabled={!sourcePrompt}
-                                loading={isTranslating}
+                                loading={isTranslating ? "Translating" : false}
                                 icon={ArrowRightLeft}
-                                label={isTranslating ? 'Translating...' : 'Translate Prompt'} />
+                                label="Translate Prompt"
+                            />
                         </div>
 
                         {optimizations.length > 0 && (
-                            <div className="lg:col-span-2 bg-purple-50 p-4 rounded-md">
+                            <div className="lg:col-span-2 bg-purple-50 p-4 rounded">
                                 <h3 className="flex items-center text-lg font-medium text-purple-700 mb-2">
                                     <Sparkles size={18} className="mr-2" />
                                     Optimization Suggestions for {models.find(m => m.id === targetModel)?.name}
@@ -155,25 +151,20 @@ const TranslatePrompts = () => {
                             inferredPrompt={inferredPrompt}
                         />
 
-
-                        <div className="flex justify-center lg:col-span-2 my-4">
-                            <ActionBtn
-                                onClick={inferPromptFromOutput}
-                                disabled={!reverseOutput || isInferring}
-                                loading={isInferring}
-                                icon={Sparkles}
-                                label={isInferring ? 'Inferring Prompt...' : 'Infer Original Prompt'} />
+                        <div className="flex justify-center lg:col-span-2 mt-2 mb-3">
+                                <ActionBtn
+                                    onClick={inferPromptFromOutput}
+                                    disabled={!reverseOutput}
+                                    loading={isInferring ? "Inferring Prompt" : false}
+                                    icon={Sparkles}
+                                    label="Infer Original Prompt"
+                                />
                         </div>
                     </div>
                 )}
             </div>
-
-            <footer className="mt-8 text-center text-gray-500 text-sm">
-                <p>PromptPort: Cross-LLM Prompt Translator + Optimizer powered by Amazon Q</p>
-                <p className="text-xs mt-1">Demonstration Project - Not for Production Use</p>
-            </footer>
         </div>
-    )
-}
+    );
+};
 
-export default TranslatePrompts
+export default TranslatePrompts;
