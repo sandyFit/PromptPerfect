@@ -20,7 +20,7 @@ const PromptForm = ({ isSourceModel, model, setModel, prompt, setPrompt }) => {
                         id={isSourceModel ? 'sourceModel' : 'targetModel'}
                         className="block w-64 rounded border border-gray-300 focus:outline-none focus:ring-2 
                             focus:border-purple-500 focus:ring-purple-500 text-sm text-gray-800
-                            shadow-sm shadow-purple-200"
+                            shadow-sm shadow-gray-200"
                         value={model}
                         onChange={(e) => setModel(e.target.value)}
                     >

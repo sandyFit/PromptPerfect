@@ -2,13 +2,13 @@ const express = require('express');
 const router = express.Router();
 const prisma = require('../prisma/client');
 const { validatePromptsSchema } = require('../utils/schemaValidations');
-const { askAmazonQ } = require('../utils/askAmazonQ'); // 🧠 Ensure this is implemented
+//const { askAmazonQ } = require('../utils/askAmazonQ'); // 🧠 Ensure this is implemented
 const { suggestions: defaultSuggestions } = require('../utils/suggestions'); 
 
 /**
  * Attempts to reverse-engineer a prompt from model output
  */
-router.post('/api/reverse-engineer', async (req, res) => {
+router.post('/reverse-engineer', async (req, res) => {
     try {
         const { modelOutput, modelType } = req.body;
 

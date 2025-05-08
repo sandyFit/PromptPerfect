@@ -15,8 +15,8 @@ const PromptTextarea = ({
             </label>}
 
             <textarea
-                className={`w-full h-88 p-4 pr-20 border border-purple-300 rounded-md shadow-inner 
-                    shadow-purple-200 text-sm font-mono resize-none focus:outline-none focus:ring-2 
+                className={`w-full h-88 p-4 pr-20 border-2 border-purple-300 rounded-md shadow-inner 
+                    shadow-gray-200 text-sm font-mono resize-none focus:outline-none focus:ring-2 
                     focus:ring-purple-500 bg-white focus:border-purple-500
                     ${readOnly ? 'text-gray-600' : ''}`}
                 placeholder={placeholder}

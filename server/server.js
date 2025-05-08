@@ -4,7 +4,7 @@ const prisma = require('./prisma/client');
 const bodyParser = require('body-parser');
 const translate = require('./routes/translate');
 const optimize = require('./routes/optimize');
-//const infer = require('./routes/infer');
+const infer = require('./routes/reverseEng');
 
 const app = express();
 
@@ -28,7 +28,7 @@ app.use(bodyParser.json());
 
 app.use('/api', translate);
 app.use('/api', optimize);
-//app.use('/api', infer);
+app.use('/api', infer);
 
 app.use((err, req, res, next) => { 
     console.error('Server error:', err);

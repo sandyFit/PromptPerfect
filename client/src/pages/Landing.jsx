@@ -28,7 +28,7 @@ const Landing = () => {
                         PromptPerfect
                     </span>
                 </h1>
-                <h3 className='w-[93%] text-lg pt-4'>
+                <h3 className='mx-12 text-lg pt-4'>
                     Welcome to your AI prompt control center — Translate and optimize
                     prompts across top LLMs like OpenAI, Claude, Gemini, and Bedrock-compatible models.
                     Whether you're building apps, agents, or experiments, PromptPerfect ensures your intent,

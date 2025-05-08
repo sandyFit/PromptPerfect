@@ -77,7 +77,7 @@ const TranslatePrompts = () => {
     };
 
     return (
-        <div className="flex flex-col max-h-screen bg-purple-100 px-12 ">
+        <div className="flex flex-col h-[calc(100vh-80px)] bg-gray-50 px-12 pt-4 pb-8 border-t border-gray-300">
 
             <div className="flex mb-3 justify-center">
                 <PrimaryBtn
@@ -86,18 +86,18 @@ const TranslatePrompts = () => {
                     legend="Translate Prompt"
                     activeTab={activeTab === 'translate'
                         ? ' text-purple-600 border-b-4 border-purple-600'
-                        : 'bg-purple-50 text-gray-500'}
+                        : 'bg-white text-gray-500'}
                 />
                 <PrimaryBtn
                     onClick={() => setActiveTab('reverse')}
                     icon={<ScanSearch size={16}/>}
                     legend="Reverse Engineer"
                     activeTab={activeTab === 'translate'
-                        ? 'bg-purple-50 text-gray-500 '
+                        ? 'bg-white text-gray-500 '
                         : 'text-purple-600 border-b-4 border-purple-600'}
                 />
             </div>
-            <div className="bg-white border border-purple-200 rounded-lg shadow-lg shadow-purple-200 px-12 pt-8 pb-3 flex-grow">
+            <div className="bg-white border border-gray-200 rounded-lg shadow-lg shadow-gray-200 px-12 pt-8 pb-3 flex-grow">
 
                 {activeTab === 'translate' ? (
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">

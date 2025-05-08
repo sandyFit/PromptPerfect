@@ -23,7 +23,7 @@ const ReversePrompt = ({
     return (
         <section className='grid grid-cols-1 lg:grid-cols-2 gap-12'>
             <form className="flex flex-col ">
-                <label className="block text-sm font-medium text-purple-600 mb-4.5">
+                <label className="block text-sm font-medium text-gray-800 mb-4.5">
                     Model Output
                     <span className="font-normal text-gray-600 ml-2">
                         — to reverse-engineer prompt
@@ -39,9 +39,9 @@ const ReversePrompt = ({
 
                 <div className="mt-2">
                     <select
-                        className="block w-1/3 rounded border border-purple-300 text-purple-600 py-0.5 
+                        className="block w-1/3 rounded border border-gray-300 text-gray-600 py-0.5 
                             focus:outline-none focus:ring-2 focus:border-purple-500 focus:ring-purple-500 
-                            text-sm shadow-sm shadow-purple-200 "
+                            text-sm shadow-sm shadow-gray-200 "
                         value={targetModel}
                         onChange={(e) => setTargetModel(e.target.value)}
                     >
@@ -53,7 +53,7 @@ const ReversePrompt = ({
             </form>
 
             <form className="flex flex-col">
-                <label className="block text-sm font-medium text-purple-600 mb-4.5">
+                <label className="block text-sm font-medium text-gray-800 mb-4.5">
                     Inferred Prompt
                 </label>
 

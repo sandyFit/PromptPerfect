@@ -15,7 +15,7 @@ const Navbar = () => {
 
 
     return (
-        <header className='flex justify-between items-center px-24 pt-3 pb-6'>
+        <header className='w-full h-[80px] flex justify-between items-center px-24 pt-3 pb-6 z-50'>
 
             <Link to="/" className="text-xl font-bold">
                 PromptPerfect
