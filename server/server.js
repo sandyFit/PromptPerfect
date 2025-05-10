@@ -1,3 +1,4 @@
+const dotenv = require('dotenv');
 const express = require('express');
 const cors = require('cors');
 const prisma = require('./prisma/client');
@@ -7,6 +8,7 @@ const optimize = require('./routes/optimize');
 const infer = require('./routes/reverseEng');
 
 const app = express();
+dotenv.config();
 
 app.use(cors({
     origin: [
@@ -46,6 +48,7 @@ const startServer = async () => {
         app.listen(PORT, () => {
             console.log(`🚀 Server running in ${process.env.NODE_ENV} mode on port ${PORT}`);
             console.log(`📝 Health check available at http://localhost:${PORT}/api/health`);
+
         });
     } catch (error) {
         console.error('❌ Failed to start server:', error);

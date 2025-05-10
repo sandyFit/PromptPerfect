@@ -3,30 +3,6 @@ const router = express.Router();
 const prisma = require('../prisma/client');
 const { validatePromptsSchema } = require('../utils/schemaValidations');
 
-/**
- * Helper function to run Amazon Q Developer CLI commands.
- * @param {string} prompt - The prompt to send to Amazon Q
- * @returns {Promise<string>} - The response from Amazon Q
- * @throws {Error} - If the command fails
- * @description This function runs the Amazon Q Developer CLI command with the provided prompt 
- * and returns the response.
- * It uses the child_process module to execute the command and returns a promise that resolves 
- * with the response.
- */
-
-const askAmazonQ = async (prompt) => {
-    // This is a placeholder for the actual implementation of the Amazon Q command.
-    // You would replace this with the actual command to run Amazon Q Developer CLI commands.
-
-    return new Promise((resolve, reject) => {
-        // Simulate API call with timeout
-        setTimeout(() => {
-            // Example response from Amazon Q (would come from Amazon Q in actual implementation)
-            const response = `# Answer from Amazon Q\n\n${prompt}`;
-            resolve(response);
-        }, 1500);
-    });
-};
 
 /**
  * Translate prompt between different LLM formats.
@@ -45,26 +21,6 @@ router.post('/translate', async (req, res) => {
 
         const { sourceModel, targetModel, sourcePrompt } = promptToTranslate.data;
 
-        // Compose a translation request for Amazon Q
-        const amazonQPrompt = `
-            I need you to translate the following prompt from ${sourceModel} format 
-            to ${targetModel} format.
-            Please maintain the same functionality, intent, tone, and structure while adapting
-            it to the target model's best practices and guidelines.
-            
-            Source Prompt (${sourceModel} format): 
-            """
-            ${sourcePrompt}
-            """
-            
-            Please translate the above prompt to ${targetModel} format, preserving all functionality and intent.
-            `;
-
-        // Call the Amazon Q (simulated for now)
-        const translatedPrompt = await askAmazonQ(amazonQPrompt);
-
-        // In a real implementation, we would parse the response from Amazon Q
-        // For this prototype, we'll use a simple translation mapping
         let processedTranslation = '';
 
         if (sourceModel === 'openai' && targetModel === 'claude') {
@@ -122,7 +78,6 @@ router.post('/translate', async (req, res) => {
             targetModel,
             originalPrompt: sourcePrompt,
             translatedPrompt: processedTranslation,
-            rawAmazonQResponse: translatedPrompt
         });
 
 

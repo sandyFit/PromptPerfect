@@ -12,26 +12,8 @@ router.post('/api/generate-test-harness', async (req, res) => {
             return res.status(400).json({ error: 'Missing required parameters' });
         }
 
-        // Create a prompt for Amazon Q to generate a test harness
-        const amazonQPrompt = `
-            I need to create a test harness for a ${modelType} prompt to verify it works as expected.
-            Please generate a simple test harness in JavaScript or Python that:
-            1. Sends the prompt to the ${modelType} API
-            2. Validates the response against expected criteria
-            3. Includes error handling and basic logging
-            
-            Prompt to test:
-            """
-            ${prompt}
-            """
-            
-            Please provide a complete, runnable test harness with API integration.
-    `   ;
 
-        // Get test harness from Amazon Q
-        const amazonQResponse = await askAmazonQ(amazonQPrompt);
-
-        // In a real implementation, we would parse the response from Amazon Q
+        // In a real implementation, we would parse the response from an LLM API
         // For this prototype, we'll generate a basic test harness based on the model type
         let testHarness = '';
 

@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const prisma = require('../prisma/client');
 const { validatePromptsSchema } = require('../utils/schemaValidations');
-const { askAmazonQ } = require('../utils/askAmazonQ'); // 🧠 Ensure this is implemented
 const {suggestions: defaultSuggestions} = require('../utils/suggestions'); 
 
 /**
@@ -21,38 +20,18 @@ router.post('/optimize', async (req, res) => {
         }
 
         const { targetModel, sourcePrompt } = optimizedPrompt.data;
-
-        const amazonQPrompt = `
-            Please analyze this ${targetModel} prompt and provide 3–5 specific optimization suggestions
-            to make it more effective for the ${targetModel} model. Consider the model's strengths,
-            weaknesses, and best practices.
-
-            Prompt:
-            """
-            ${sourcePrompt}
-            """
-
-            Provide numbered suggestions in a list format. Each suggestion should be clear and actionable.
-            Avoid generic advice and focus on specific improvements that can be made to the prompt.
-        `;
+         
 
         let formattedSuggestions = [];
-        let rawAmazonQResponse = '';
 
-        try {
-            rawAmazonQResponse = await askAmazonQ(amazonQPrompt);
-            
-            // Extract suggestions from response
-            const suggestionLines = rawAmazonQResponse
-                .split('\n')
-                .filter(line => line.trim().match(/^\d+\./)); // e.g., "1. Do X"
-
+        try {           
+            // Extract suggestions 
             formattedSuggestions = suggestionLines.map((line, index) => ({
                 id: index + 1,
                 suggestion: line.trim()
             }));
         } catch (error) { 
-            console.warn('Amazon Q failed, using fallback suggestions:', error.message);
+            console.warn('Failed to extract suggestions:', error.message);
             formattedSuggestions = (defaultSuggestions[targetModel] || [])
                 .map((suggestion, index) => ({
                     id: index + 1,
@@ -71,7 +50,6 @@ router.post('/optimize', async (req, res) => {
 
         res.status(200).json({
             suggestions: formattedSuggestions,
-            rawAmazonQResponse: rawAmazonQResponse || 'Fallback suggestions used.'
         });
 
     } catch (error) {

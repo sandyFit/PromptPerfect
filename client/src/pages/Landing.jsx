@@ -4,6 +4,7 @@ import { ArrowRight, WandSparkles, ScanSearch, AlertCircle, FlaskConical } from 
 import features from '../data/features';
 import LandingCard from '../components/LandingCard';
 import Footer from '../layouts/Footer';
+import Navbar from '../layouts/Navbar';
 
 const Landing = () => {
     const navigate = useNavigate();
@@ -20,6 +21,7 @@ const Landing = () => {
 
     return (
         <section className='w-full max-h-screen bg-purple-100 px-24 pt-4 flex flex-col justify-between'>
+            <Navbar />
             <div className="flex flex-col justify-center items-center flex-grow -mt-6">
                 <h1 className='text-5xl font-bold pt-12 text-center'>
                     One Prompt, Five Voices with <br />
