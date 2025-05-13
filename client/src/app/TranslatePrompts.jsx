@@ -96,7 +96,7 @@ const TranslatePrompts = () => {
     };
 
     return (   
-        <section className="flex flex-col items-center justify-center text-center px-12 py-8">   
+        <section className="flex flex-col items-center justify-center text-center py-4">   
             <h3 className="text-xl font-medium text-gray-700 mb-2">Prompt Translation</h3>
             <p className="text-gray-500 mx-auto">
                 Translate your prompt from one LLM to another, and get expert advice on how to optimize it

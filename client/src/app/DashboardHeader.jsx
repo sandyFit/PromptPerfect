@@ -7,12 +7,12 @@ const DashboardHeader = () => {
     const [activeTab, setActiveTab] = useState('translate');
 
     return (
-        <header className='flex flex-col h-20 bg-gray-50 px-12 pt-4 pb-8 border-t 
-            border-gray-300'>
-            <div className="flex bg-gray-100 p-2 gap-2">
+        <header className='flex flex-col h-20 pt-4 pb-8 '>
+            <div className="flex bg-white border-lg border-gray-200 shadow shadow-gray-200 
+                rounded-t-lg p-2.5 gap-2">
                 <TabButton
                     id="translate"
-                    to="/app/translate"
+                    to="/app"
                     icon={ArrowRightLeft}
                     label="Prompt Translator"
                     activeTab={activeTab}

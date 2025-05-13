@@ -13,7 +13,7 @@ const App = () => {
             <Routes>
                 <Route path="/" element={<Landing />} />
                 <Route path="/app" element={<Dashboard />} >
-                    <Route path="/app/translate" element={<TranslatePrompts />} />
+                    <Route index element={<TranslatePrompts />} />
                     <Route path="/app/test" element={<PromptTesting />} />
                     <Route path="/app/cli" element={<CliIntegration />} />
                 </Route>

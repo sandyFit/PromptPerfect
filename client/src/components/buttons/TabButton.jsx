@@ -7,7 +7,7 @@ const TabButton = ({ id, icon, label, activeTab, onClick, to }) => {
             to={to}
             onClick={onClick}
             className={`flex items-center px-4 py-2 rounded-t-lg ${activeTab === id
-                ? 'bg-white border-t border-l border-r border-gray-200 text-purple-600 font-medium'
+                ? 'bg-purple-50 border-t border-l border-r border-gray-200 text-purple-600 font-medium'
                 : 'bg-gray-50 text-gray-700'}`}
         >
             <Icon size={18} className="mr-2" />
