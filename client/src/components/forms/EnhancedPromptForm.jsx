@@ -10,6 +10,30 @@ const EnhancedPromptForm = ({ model, setModel, prompt, setPrompt }) => {
         navigator.clipboard.writeText(prompt);
     };
 
+
+    const handleExport = (e) => {
+        e.preventDefault();
+
+        // Export functionality for the translated prompt
+        // This could be implemented to export as PDF or any other format, currently only implemented the 
+        // .txt format
+        console.log("Export functionality to be implemented");
+
+        // Basic text file export implementation
+        if (prompt) {
+            const blob = new Blob([prompt], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `translated_prompt_${new Date().toISOString().slice(0, 10)}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+        
+    };
+
     return (
         <section>
             <form className="flex flex-col" onSubmit={(e) => e.preventDefault()}>
@@ -52,7 +76,7 @@ const EnhancedPromptForm = ({ model, setModel, prompt, setPrompt }) => {
                     />
                     <SmallBtn
                         legend='Export'
-                        onClick={(e) => { e.preventDefault(); /* Export logic */ }}
+                        onClick={handleExport}
                         disabled={!prompt} // Disable export if no prompt is available
                     />
                 </div>

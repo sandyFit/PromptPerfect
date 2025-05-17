@@ -97,13 +97,14 @@ const TranslatePrompts = () => {
         }
     };
 
-    return (   
-        <section className="flex flex-col items-center justify-center text-center py-4">   
-            <h3 className="text-xl font-medium text-gray-700 mb-2">Prompt Translation</h3>
+    return (
+        <section className="flex flex-col items-center justify-center text-center py-4">
+            <h3 className="text-xl font-medium text-gray-700 mb-2">
+                Try Our AI-Powered Prompt Builder
+            </h3>
             <p className="text-gray-500 mx-auto">
-                Translate your prompt from one LLM to another, and get expert advice on how to optimize it
-                for maximum performance.
-            </p>    
+                Got a rough idea? Our AI refines it with expert techniques—like a pro prompt engineer would.
+            </p>
             <div className="w-full bg-white border border-gray-200 rounded-lg shadow-lg shadow-gray-200 
                 px-12 pt-8 pb-3 mt-6 flex-grow">
 
@@ -113,7 +114,7 @@ const TranslatePrompts = () => {
                             prompt={sourcePrompt}
                             setPrompt={setSourcePrompt}
                         />
-                        
+
                         <EnhancedPromptForm
                             model={targetModel}
                             setModel={setTargetModel}
@@ -128,7 +129,7 @@ const TranslatePrompts = () => {
                                 disabled={!sourcePrompt}
                                 loading={isTranslating ? "Translating" : false}
                                 icon={ArrowRightLeft}
-                                label="Translate Prompt"
+                                label="Make My Prompt Perfect"
                             />
                         </div>
 
@@ -167,9 +168,9 @@ const TranslatePrompts = () => {
                                 </div>
                             </div>
                         )}
-                    </div>           
+                    </div>
                 )}
-            </div>       
+            </div>
         </section>
     );
 };
