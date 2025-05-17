@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import SmallBtn from '../buttons/SmallBtn';
 import { Copy } from 'lucide-react';
-import models from '../../data/models';
+import promptTechniques from '../../data/promptTechniques';
 import PromptTextarea from '../PromptTextarea';
 
 const EnhancedPromptForm = ({ model, setModel, prompt, setPrompt }) => {
@@ -22,6 +22,7 @@ const EnhancedPromptForm = ({ model, setModel, prompt, setPrompt }) => {
         // Basic text file export implementation
         if (prompt) {
             const blob = new Blob([prompt], { type: 'text/plain' });
+            // Generate a temporary URL (like a pointer) that refers to the Blob.
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
@@ -39,22 +40,25 @@ const EnhancedPromptForm = ({ model, setModel, prompt, setPrompt }) => {
             <form className="flex flex-col" onSubmit={(e) => e.preventDefault()}>
                 <header className="flex items-center gap-4 mb-4">
                     <label
-                        htmlFor='targetModel'
-                        className="block text-sm font-medium text-gray-900"
+                        htmlFor='enhancedPrompt'
+                        className="block w-[25%] text-sm font-medium text-gray-900 text-left"
                     >
                         Pick a technique
                     </label>
                     <select
-                        id='targetModel'
-                        className="block w-64 rounded border border-gray-300 focus:outline-none focus:ring-2
+                        id='enhancedPrompt'
+                        className="block w-full rounded border border-gray-300 focus:outline-none focus:ring-2
                             focus:border-purple-500 focus:ring-purple-500 text-sm text-gray-800
                             shadow-sm shadow-gray-200"
                         value={model}
                         onChange={(e) => setModel(e.target.value)}
                     >
-                        {models.map(model => (
-                            <option key={model.id} value={model.id}>{model.name}</option>
+                        {promptTechniques.map(technique => (
+                            <option key={technique.key} value={technique.key}>
+                                {technique.example} — ({technique.name})
+                            </option>
                         ))}
+
                     </select>
                 </header>
 
