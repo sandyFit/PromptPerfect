@@ -28,8 +28,8 @@ const ActionBtn = ({ onClick, disabled, loading, icon, label }) => {
     return (
         <button
             className={clsx(
-                `flex items-center px-8 py-2 bg-purple-600 text-white rounded-md shadow shadow-purple-200 
-                    hover:bg-purple-700 disabled:bg-purple-400 font-medium uppercase`,
+                `flex items-center px-8 py-2 bg-purple-700 text-white rounded-md shadow shadow-purple-200 
+                    hover:bg-purple-600 disabled:bg-purple-400 font-medium uppercase`,
                 loading && "cursor-not-allowed"
             )}
             onClick={onClick}

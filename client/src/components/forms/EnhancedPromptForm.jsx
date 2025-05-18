@@ -4,7 +4,13 @@ import { Copy } from 'lucide-react';
 import promptTechniques from '../../data/promptTechniques';
 import PromptTextarea from '../PromptTextarea';
 
-const EnhancedPromptForm = ({ model, setModel, prompt, setPrompt }) => {
+const EnhancedPromptForm = ({ prompt }) => {
+    const [technique, setTechnique,] = useState('Select a prompt technique');
+
+    const handleChange = (e) => {
+        setTechnique(e.target.value);
+    };
+      
 
     const handleCopy = () => {
         navigator.clipboard.writeText(prompt);
@@ -13,7 +19,6 @@ const EnhancedPromptForm = ({ model, setModel, prompt, setPrompt }) => {
 
     const handleExport = (e) => {
         e.preventDefault();
-
         // Export functionality for the translated prompt
         // This could be implemented to export as PDF or any other format, currently only implemented the 
         // .txt format
@@ -41,32 +46,37 @@ const EnhancedPromptForm = ({ model, setModel, prompt, setPrompt }) => {
                 <header className="flex items-center gap-4 mb-4">
                     <label
                         htmlFor='enhancedPrompt'
-                        className="block w-[25%] text-sm font-medium text-gray-900 text-left"
+                        className="block w-[30%] text-sm font-medium text-gray-900 text-left"
                     >
-                        Pick a technique
+                        Prompt wizard results 
                     </label>
                     <select
-                        id='enhancedPrompt'
-                        className="block w-full rounded border border-gray-300 focus:outline-none focus:ring-2
-                            focus:border-purple-500 focus:ring-purple-500 text-sm text-gray-800
-                            shadow-sm shadow-gray-200"
-                        value={model}
-                        onChange={(e) => setModel(e.target.value)}
+                        id="enhancedPrompt"
+                        className="block w-full rounded border border-gray-300 text-sm text-gray-800
+                            shadow-sm shadow-gray-200
+                            focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500
+                            hover:border-purple-400"
+                        value={technique}
+                        onChange={handleChange}
                     >
-                        {promptTechniques.map(technique => (
+                        <option value="Select a prompt technique" disabled>
+                            Select a prompt technique
+                        </option>
+                        {promptTechniques.map((technique) => (
                             <option key={technique.key} value={technique.key}>
                                 {technique.example} — ({technique.name})
                             </option>
                         ))}
-
                     </select>
+
+
                 </header>
 
                 <div className="relative">
                     <PromptTextarea
                         value={prompt}
                         onChange={(e) => {}}
-                        placeholder='Enhanced prompt will appear here in your target model...'
+                        placeholder='Let our wizard refine your prompt — see the result here.'
                         maxLength={5000}
                         readOnly
                     />

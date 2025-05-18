@@ -42,7 +42,7 @@ const InputPromptForm = ({ prompt, setPrompt }) => {
             <form className="flex flex-col" onSubmit={(e) => e.preventDefault()}>
                 <header className="flex items-center gap-4 mb-4">
                     <label
-                        htmlFor='sourceModel'
+                        htmlFor='userPrompt'
                         className="block text-sm font-medium text-gray-900"
                     >
                         Enter your prompt
@@ -54,7 +54,7 @@ const InputPromptForm = ({ prompt, setPrompt }) => {
                     <PromptTextarea
                         value={prompt}
                         onChange={(e) => setPrompt(e.target.value)}
-                        placeholder='Choose your source model and paste your prompt here...'
+                        placeholder='Need better AI replies? Start by entering your prompt here...'
                         maxLength={5000}
                     />
                 </div>

@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowRight, WandSparkles, ScanSearch, AlertCircle, FlaskConical } from 'lucide-react';
 import features from '../data/features';
-import LandingCard from '../components/LandingCard';
+import LandingCard from '../components/cards/LandingCard';
 import Footer from '../layouts/Footer';
 import Navbar from '../layouts/Navbar';
 

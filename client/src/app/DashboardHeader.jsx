@@ -4,19 +4,19 @@ import { ArrowRightLeft, FlaskConical, TerminalSquare } from 'lucide-react';
 
 const DashboardHeader = () => {
 
-    const [activeTab, setActiveTab] = useState('translate');
+    const [activeTab, setActiveTab] = useState('enhance');
 
     return (
         <header className='flex flex-col h-20 pt-4 pb-8 '>
             <div className="flex bg-white border-lg border-gray-200 shadow shadow-gray-200 
                 rounded-t-lg p-2.5 gap-2">
                 <TabButton
-                    id="translate"
+                    id="enhance"
                     to="/app"
                     icon={ArrowRightLeft}
-                    label="Prompt Translator"
+                    label="Prompt Wizard"
                     activeTab={activeTab}
-                    onClick={() => setActiveTab('translate')}
+                    onClick={() => setActiveTab('enhance')}
                 />
                 <TabButton
                     id="test"
