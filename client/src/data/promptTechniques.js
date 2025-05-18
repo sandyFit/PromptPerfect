@@ -1,33 +1,27 @@
 const promptTechniques = [
     {
       key: 'chainOfThought',
-      name: 'Chain of Thought',
+      name: 'Chain of Thought (CoT)',
       example: 'Make my prompt more logical',
-      description: 'Encourages the model to reason step-by-step before answering, improving logic and accuracy.'
+      description: 'Encourages the model to reason step-by-step before answering, breaking down a complex problem into smaller manegable steps to improve logic and accuracy.'
     },
     {
       key: 'rolePlay',
       name: 'Role Prompting',
       example: 'Make it sound like an expert',
-      description: 'Assigns a role or persona (e.g., lawyer, teacher, chef) to guide the tone, vocabulary, and expertise of the response.'
+      description: 'Instructs the AI model to adopt a specific role, persona or identity (e.g., lawyer, teacher, helpful assistant, sarcastic critic) to guide the tone, vocabulary, and expertise of the response.'
     },
     {
-      key: 'instructional',
-      name: 'Instructional',
-      example: 'Make it more instructive',
-      description: 'Directs the model to explain something clearly, often with step-by-step instructions or educational language.'
-    },
-    {
-      key: 'reflexion',
-      name: 'Reflexion',
+      key: 'selfVerification',
+      name: 'Self Verification',
       example: 'Ask the model to double-check its answer',
-      description: 'Prompts the model to reflect on and verify its initial output, reducing errors and improving reliability.'
+      description: 'Expicity prompts the AI model to review, verify or justify its answers, leveraging its ability to self-assess and potentially improve the quality and reliability of its generated content.'
     },
     {
       key: 'fewShot',
       name: 'Few-Shot',
       example: 'Add examples to guide the output.',
-      description: 'Provides a few sample inputs and outputs to demonstrate the format or expected response pattern.'
+      description: 'Provides a few sample inputs and outputs to guide the AI model towards the desired format and style of the response, in addition to the instructions or question.'
     }
   ];
   

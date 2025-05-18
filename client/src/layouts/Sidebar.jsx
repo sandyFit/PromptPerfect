@@ -47,7 +47,7 @@ const Sidebar = () => {
                     </li>
                     <li className='flex flex-col items-center'>
                         <a className='flex justify-center items-center hover:bg-white p-2 rounded-lg w-10 h-10'>
-                            <LogOut size={24} className='text-gray-500 hover:text-purple-700' />
+                            <LogOut size={24} className='text-gray-500 hover:text-purple-7Strategic AI Prompt Engineering00' />
                         </a>
                         <div className=''>Logout</div>
                     </li>

@@ -1,24 +1,24 @@
 const features = [
     {
         id: 1,
-        title: 'Prompt Optimizations',
-        description: "Suggest prompt structure optimizations based on each model's style.",
+        title: 'Prompt Optimization',
+        description: "Upgrade your prompts for clarity, precision, and AI understanding, no guesswork needed.",
     },
 
     {
         id: 2,
-        title: 'Reverse Engineering',
-        description: "Reverse engineer the original prompt from a model's response.",
+        title: 'Prompt Clinic',
+        description: 'Diagnose and fix weak spots in your prompts with targeted suggestions to improve performance and relevance.',
     },
     {
         id: 3,
-        title: 'Prompt Clinic',
-        description: 'Identify potential weaknesses in prompts with suggested fixes.',
+        title: 'Context Length Optimization',
+        description: "Automatically trim and reshape prompts to fit token limits without losing important context or meaning."
     },
     {
         id: 4,
         title: 'Prompt Testing',
-        description: 'Test each translated prompt with a prompt testing harness.',
+        description: 'Run your prompts through real-world test scenarios using our prompt testing harness to find the best version.',
     },
     
     
