@@ -33,7 +33,7 @@ const Landing = () => {
                 <h3 className='mx-12 text-lg pt-4'>
                     Welcome to PromptPerfect — your all-in-one prompt control center built to supercharge your
                     interactions with AI.
-
+                    
                     Whether you're a beginner or a pro, our powerful AI-powered prompt wizard helps you craft,
                     refine, and test your prompts with precision. Just choose a technique, enter your prompt,
                     and make it perfect and ready to copy, test, or export. This is what sets PromptPerfect appart ⇲

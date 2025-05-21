@@ -1,0 +1,19 @@
+# Node.js stuff
+node_modules/
+dist/
+
+# Python virtual environment inside ml-service
+ml-service/venv/
+
+# Python cache
+**/__pycache__/
+*.pyc
+
+# Logs
+*.log
+
+# OS or editor files
+.DS_Store
+.vscode/
+.idea/
+
